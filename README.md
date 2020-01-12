@@ -15,7 +15,7 @@ This is a microservice that suggests a music playlist by **city** and its **curr
  - ???????
 
 ## Code Architecture
-some image here
+Get my draw.io [here](https://drive.google.com/open?id=1qz8vuOCy8hPsy1T82qd0-hld0FCxV1bZ)
 
 ## Repositories
 
