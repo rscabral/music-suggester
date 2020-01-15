@@ -10,13 +10,18 @@ class MusicFacadeConfiguration {
 
 
   @Profile(EnvProfiles.DEFAULT)
+  @Bean
   MusicFacade musicFacade() {
-    return musicFacade(new InMemoryMusicRepository());
+    return musicFacadeCreator(new InMemoryMusicRepository());
   }
 
   @Profile(EnvProfiles.LIVE)
   @Bean
   MusicFacade musicFacade(IMusicRepository repository) {
+    return musicFacadeCreator(repository);
+  }
+
+  MusicFacade musicFacadeCreator(IMusicRepository repository) {
     return new MusicFacade(repository);
   }
 }

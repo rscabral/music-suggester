@@ -24,7 +24,7 @@ class InMemoryCityWeatherRepository implements ICityWeatherRepository {
   @Override
   public Optional<CityWeatherDto> findByCityName(String cityName) {
     return this.cityWeatherDtoList.stream().findFirst().filter(
-        c -> c.getCityName().equals(cityName));
+        c -> c.getCityName().equalsIgnoreCase(cityName));
   }
 
   @Override
