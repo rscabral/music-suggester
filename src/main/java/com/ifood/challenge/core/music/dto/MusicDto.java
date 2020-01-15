@@ -1,6 +1,7 @@
 package com.ifood.challenge.core.music.dto;
 
 import com.ifood.challenge.shared.dto.DtoObject;
+import org.springframework.hateoas.EntityModel;
 
 public class MusicDto implements DtoObject {
 
@@ -25,6 +26,11 @@ public class MusicDto implements DtoObject {
 
   public String getGenre() {
     return genre;
+  }
+
+  @Override
+  public EntityModel<MusicDto> toEntityModel() {
+    return new EntityModel<>(this);
   }
 
   public static class MusicDtoCreator {

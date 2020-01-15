@@ -1,17 +1,15 @@
 package com.ifood.challenge.core.playlistsuggester.business;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.Test;
 
-@SpringBootTest
 public class WeatherMusicGenreRuleEngineTest {
 
   private static WeatherMusicGenreRuleEngine ruleEngine = new WeatherMusicGenreRuleEngine();
 
   @Test
   public void whenCityTemperatureIsAbove30Celcius() {
-    WeatherMusicGenreExpression expression = new WeatherMusicGenreExpression(31L);
+    WeatherMusicGenreExpression expression = new WeatherMusicGenreExpression(31);
     WeatherMusicGenreResult result = ruleEngine.process(expression);
 
     Assert.assertNotNull(result);
@@ -20,8 +18,8 @@ public class WeatherMusicGenreRuleEngineTest {
 
   @Test
   public void whenCityTemperatureIsBetween15And30Celcius() {
-    WeatherMusicGenreExpression minTemperature = new WeatherMusicGenreExpression(15L);
-    WeatherMusicGenreExpression maxTemperature = new WeatherMusicGenreExpression(30L);
+    WeatherMusicGenreExpression minTemperature = new WeatherMusicGenreExpression(15);
+    WeatherMusicGenreExpression maxTemperature = new WeatherMusicGenreExpression(30);
     WeatherMusicGenreResult result = ruleEngine.process(minTemperature);
 
     Assert.assertNotNull(result);
@@ -35,8 +33,8 @@ public class WeatherMusicGenreRuleEngineTest {
 
   @Test
   public void whenCityTemperatureIsBetween10And14Celcius() {
-    WeatherMusicGenreExpression minTemperature = new WeatherMusicGenreExpression(10L);
-    WeatherMusicGenreExpression maxTemperature = new WeatherMusicGenreExpression(14L);
+    WeatherMusicGenreExpression minTemperature = new WeatherMusicGenreExpression(10);
+    WeatherMusicGenreExpression maxTemperature = new WeatherMusicGenreExpression(14);
     WeatherMusicGenreResult result = ruleEngine.process(minTemperature);
 
     Assert.assertNotNull(result);
@@ -50,7 +48,7 @@ public class WeatherMusicGenreRuleEngineTest {
 
   @Test
   public void whenCityTemperatureIsBelow10Celcius() {
-    WeatherMusicGenreExpression expression = new WeatherMusicGenreExpression(9L);
+    WeatherMusicGenreExpression expression = new WeatherMusicGenreExpression(9);
     WeatherMusicGenreResult result = ruleEngine.process(expression);
 
     Assert.assertNotNull(result);

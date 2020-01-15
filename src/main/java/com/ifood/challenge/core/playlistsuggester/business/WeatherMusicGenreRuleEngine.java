@@ -4,16 +4,15 @@ import com.ifood.challenge.core.playlistsuggester.IWeatherMusicGenreRule;
 import com.ifood.challenge.core.playlistsuggester.IWeatherMusicGenreRuleEngine;
 import java.util.LinkedList;
 import java.util.Queue;
-import javax.annotation.PostConstruct;
-import org.springframework.stereotype.Component;
 
-@Component
-// try to turn this into interface
 public class WeatherMusicGenreRuleEngine implements IWeatherMusicGenreRuleEngine {
   private Queue<IWeatherMusicGenreRule> rules = new LinkedList<>();
 
+  public WeatherMusicGenreRuleEngine() {
+    init();
+  }
+
   @Override
-  @PostConstruct
   public void init() {
     rules.add(new WeatherMusicGenreHotRule());
     rules.add(new WeatherMusicGenreWarmRule());

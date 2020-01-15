@@ -9,13 +9,19 @@ import org.springframework.context.annotation.Profile;
 class CityWeatherFacadeConfiguration {
 
   @Profile(EnvProfiles.DEFAULT)
+  @Bean
   CityWeatherFacade cityWeatherFacade() {
-    return cityWeatherFacade(new InMemoryCityWeatherRepository());
+    return cityWeatherFacadeConstructor(new InMemoryCityWeatherRepository());
   }
 
   @Profile(EnvProfiles.LIVE)
   @Bean
   CityWeatherFacade cityWeatherFacade(ICityWeatherRepository repository) {
+    return cityWeatherFacadeConstructor(repository);
+  }
+
+  CityWeatherFacade cityWeatherFacadeConstructor(ICityWeatherRepository repository) {
     return new CityWeatherFacade(repository);
   }
+
 }

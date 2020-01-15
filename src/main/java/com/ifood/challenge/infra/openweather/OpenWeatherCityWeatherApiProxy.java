@@ -1,4 +1,4 @@
 package com.ifood.challenge.infra.openweather;
 
-public class OpenWeatherCityWeatherProxy {
+public class OpenWeatherCityWeatherApiProxy {
 }

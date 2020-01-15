@@ -1,6 +1,7 @@
 package com.ifood.challenge.core.cityweather.dto;
 
 import com.ifood.challenge.shared.dto.DtoObject;
+import org.springframework.hateoas.EntityModel;
 
 public class CityWeatherDto implements DtoObject {
   private Integer currentTemperature;
@@ -29,6 +30,11 @@ public class CityWeatherDto implements DtoObject {
 
   public Integer getCurrentTemperature() {
     return currentTemperature;
+  }
+
+  @Override
+  public EntityModel<CityWeatherDto> toEntityModel() {
+    return new EntityModel<>(this);
   }
 
   public static class CityWeatherDtoCreator {

@@ -43,6 +43,6 @@ class InMemoryMusicRepository implements IMusicRepository {
 
   @Override
   public Optional<Collection<MusicDto>> findByGenre(String genre) {
-    return Optional.ofNullable(dataBaseByGenre.get(genre));
+    return Optional.ofNullable(dataBaseByGenre.get(genre.toLowerCase()));
   }
 }

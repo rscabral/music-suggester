@@ -3,13 +3,13 @@ package com.ifood.challenge.core.playlistsuggester.business;
 import java.io.Serializable;
 
 public class WeatherMusicGenreExpression implements Serializable {
-  private Long temperature;
+  private Integer temperature;
 
-  public WeatherMusicGenreExpression(Long temperature) {
+  public WeatherMusicGenreExpression(Integer temperature) {
     this.temperature = temperature;
   }
 
-  public Long getTemperature() {
+  public Integer getTemperature() {
     return temperature;
   }
 }
