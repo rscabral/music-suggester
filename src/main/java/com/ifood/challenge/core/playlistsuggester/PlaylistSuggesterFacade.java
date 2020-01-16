@@ -1,12 +1,18 @@
 package com.ifood.challenge.core.playlistsuggester;
 
+import com.ifood.challenge.core.cityweather.CityWeatherFacade;
 import com.ifood.challenge.core.cityweather.dto.CityWeatherDto;
+import com.ifood.challenge.core.cityweather.exception.CityWeatherNotFound;
+import com.ifood.challenge.core.music.MusicFacade;
 import com.ifood.challenge.core.music.dto.MusicDto;
+import com.ifood.challenge.core.music.exception.MusicPlaylistByGenreNotFound;
 import com.ifood.challenge.core.playlistsuggester.business.WeatherMusicGenreExpression;
 import com.ifood.challenge.core.playlistsuggester.business.WeatherMusicGenreRuleEngine;
 import com.ifood.challenge.core.playlistsuggester.exception.PlaylistSuggestionByCityCoordinatesNotFound;
 import com.ifood.challenge.core.playlistsuggester.exception.PlaylistSuggestionByCityNameNotFound;
+import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The class Playlist suggester facade.
@@ -16,12 +22,12 @@ public class PlaylistSuggesterFacade {
   /**
    * The City weather proxy.
    */
-  private ICityWeatherProxy cityWeatherProxy;
+  private CityWeatherFacade cityWeatherProxy;
 
   /**
    * The Music proxy.
    */
-  private IMusicProxy musicProxy;
+  private MusicFacade musicFacade;
 
   /**
    * The Weather music genre rule engine.
@@ -31,13 +37,13 @@ public class PlaylistSuggesterFacade {
   /**
    * Instantiates a new Playlist suggester facade.
    *
-   * @param cityWeatherProxy the city weather proxy
-   * @param musicProxy       the music proxy Created on 14 de jan de 2020 22:54:34
+   * @param cityWeatherFacade the city weather proxy
+   * @param musicFacade       the music proxy Created on 14 de jan de 2020 22:54:34
    */
-  public PlaylistSuggesterFacade(ICityWeatherProxy cityWeatherProxy,
-      IMusicProxy musicProxy) {
-    this.cityWeatherProxy = cityWeatherProxy;
-    this.musicProxy = musicProxy;
+  public PlaylistSuggesterFacade(CityWeatherFacade cityWeatherFacade,
+      MusicFacade musicFacade) {
+    this.cityWeatherProxy = cityWeatherFacade;
+    this.musicFacade = musicFacade;
     this.weatherMusicGenreRuleEngine = new WeatherMusicGenreRuleEngine();
   }
 
@@ -51,13 +57,19 @@ public class PlaylistSuggesterFacade {
    */
   public List<MusicDto> getPlaylistWeatherSuggestionByCityName(
       String cityName) throws PlaylistSuggestionByCityNameNotFound {
-    CityWeatherDto cityWeatherDto = cityWeatherProxy.findByCityName(cityName);
+    CityWeatherDto cityWeatherDto = null;
 
-    String musicGenre =
-        weatherMusicGenreRuleEngine.process(
-            new WeatherMusicGenreExpression(cityWeatherDto.getCurrentTemperature())).getValue();
+    try {
+      cityWeatherDto = cityWeatherProxy.findByCityName(cityName);
+    } catch (CityWeatherNotFound cityWeatherNotFound) {
+      cityWeatherNotFound.printStackTrace();
+      throw new PlaylistSuggestionByCityNameNotFound(cityName);
+    }
 
-    List<MusicDto> musicDtoList = musicProxy.findPlaylistByGenre(musicGenre);
+    String musicGenre = weatherMusicGenreRuleEngine.process(
+        new WeatherMusicGenreExpression(cityWeatherDto.getCurrentTemperature())).getValue();
+
+    List<MusicDto> musicDtoList = getMusicDtosByGenre(musicGenre);
 
     return musicDtoList;
   }
@@ -74,14 +86,32 @@ public class PlaylistSuggesterFacade {
    */
   public List<MusicDto> getPlaylistWeatherSuggestionByCityCoordinates(Double latitude,
       Double longitude) throws PlaylistSuggestionByCityCoordinatesNotFound {
-    CityWeatherDto cityWeatherDto = cityWeatherProxy.findByCityCoordinates(latitude, longitude);
+    CityWeatherDto cityWeatherDto = null;
+
+    try {
+      cityWeatherDto = cityWeatherProxy.findByCityCoordinates(latitude, longitude);
+    } catch (CityWeatherNotFound cityWeatherNotFound) {
+      throw new PlaylistSuggestionByCityCoordinatesNotFound(latitude, longitude);
+    }
 
     String musicGenre =
         weatherMusicGenreRuleEngine.process(
             new WeatherMusicGenreExpression(cityWeatherDto.getCurrentTemperature())).getValue();
 
-    List<MusicDto> musicDtoList = musicProxy.findPlaylistByGenre(musicGenre);
+    List<MusicDto> musicDtoList = getMusicDtosByGenre(musicGenre);
 
     return musicDtoList;
+  }
+
+  @NotNull
+  private List<MusicDto> getMusicDtosByGenre(String musicGenre) {
+    List<MusicDto> entityModels = null;
+    try {
+      entityModels = musicFacade.findPlaylistByGenre(musicGenre);
+    } catch (MusicPlaylistByGenreNotFound musicPlaylistByGenreNotFound) {
+      musicPlaylistByGenreNotFound.printStackTrace();
+      return new ArrayList<>();
+    }
+    return entityModels;
   }
 }

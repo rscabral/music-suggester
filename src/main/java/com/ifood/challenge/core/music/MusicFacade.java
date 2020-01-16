@@ -11,7 +11,7 @@ public class MusicFacade {
     this.repository = repository;
   }
 
-  public List<MusicDto> getMusicByGenre(String genre) throws MusicPlaylistByGenreNotFound {
+  public List<MusicDto> findPlaylistByGenre(String genre) throws MusicPlaylistByGenreNotFound {
     return (List<MusicDto>) repository.findByGenre(genre).orElseThrow(
         () -> new MusicPlaylistByGenreNotFound(genre));
   }

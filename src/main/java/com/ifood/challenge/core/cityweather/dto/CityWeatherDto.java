@@ -16,6 +16,10 @@ public class CityWeatherDto implements DtoObject {
     return new CityWeatherDtoCreator();
   }
 
+  public static CityWeatherDtoCreator builder(CityWeatherDto cityWeatherDto) {
+    return new CityWeatherDtoCreator(cityWeatherDto);
+  }
+
   public Double getLatitude() {
     return latitude;
   }
@@ -42,6 +46,10 @@ public class CityWeatherDto implements DtoObject {
 
     protected CityWeatherDtoCreator() {
       this.cityWeatherDto = new CityWeatherDto();
+    }
+
+    protected CityWeatherDtoCreator(CityWeatherDto cityWeatherDto) {
+      this.cityWeatherDto = cityWeatherDto;
     }
 
     public CityWeatherDtoCreator setLatitude(Double latitude) {

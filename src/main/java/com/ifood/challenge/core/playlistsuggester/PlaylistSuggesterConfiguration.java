@@ -1,29 +1,28 @@
 package com.ifood.challenge.core.playlistsuggester;
 
-import com.ifood.challenge.shared.EnvProfiles;
+import com.ifood.challenge.core.cityweather.CityWeatherFacade;
+import com.ifood.challenge.core.music.MusicFacade;
+import feign.Client;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 @Configuration
 class PlaylistSuggesterConfiguration {
 
-  @Profile(EnvProfiles.DEFAULT)
   @Bean
-  PlaylistSuggesterFacade playlistSuggesterFacade() {
-    return playlistSuggesterFacadeCreator(new InMemoryCityWeatherProxy(), new InMemoryMusicProxy());
-  }
-
-  @Profile(EnvProfiles.LIVE)
-  @Bean
-  PlaylistSuggesterFacade playlistSuggesterFacade(ICityWeatherProxy cityWeatherProxy,
-      IMusicProxy musicProxy) {
-    return playlistSuggesterFacadeCreator(cityWeatherProxy, musicProxy);
+  PlaylistSuggesterFacade playlistSuggesterFacade(CityWeatherFacade cityWeatherFacade,
+      MusicFacade musicFacade) {
+    return playlistSuggesterFacadeCreator(cityWeatherFacade, musicFacade);
   }
 
 
-  PlaylistSuggesterFacade playlistSuggesterFacadeCreator(ICityWeatherProxy cityWeatherProxy,
-      IMusicProxy musicProxy) {
-    return new PlaylistSuggesterFacade(cityWeatherProxy, musicProxy);
+  PlaylistSuggesterFacade playlistSuggesterFacadeCreator(CityWeatherFacade cityWeatherFacade,
+      MusicFacade musicFacade) {
+    return new PlaylistSuggesterFacade(cityWeatherFacade, musicFacade);
+  }
+
+  @Bean
+  public Client feignClient() {
+    return new Client.Default(null, null);
   }
 }

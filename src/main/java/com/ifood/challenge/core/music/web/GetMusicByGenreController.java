@@ -24,7 +24,7 @@ class GetMusicByGenreController {
   @GetMapping(params = {"genre"})
   CollectionModel<EntityModel<MusicDto>> getMusicsByGenre(
       @RequestParam("genre") String genre) throws MusicPlaylistByGenreNotFound {
-    List<MusicDto> musicDtoList = facade.getMusicByGenre(genre);
+    List<MusicDto> musicDtoList = facade.findPlaylistByGenre(genre);
     List<EntityModel<MusicDto>> entityModels =
         musicDtoList.stream().map(musicDto -> musicDto.toEntityModel()).collect(
             Collectors.toList());
