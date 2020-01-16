@@ -13,7 +13,7 @@ import org.junit.rules.ExpectedException;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles(EnvProfiles.DEFAULT)
-public class CityWeatherTest {
+public class CityWeatherUnitTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
   private CityWeatherFacade facade = new CityWeatherFacadeConfiguration().cityWeatherFacade();
@@ -26,7 +26,7 @@ public class CityWeatherTest {
 
   @Test
   public void shouldGetCityWeatherByCityName() throws CityWeatherNotFound {
-    CityWeatherDto responseDto = facade.getCityWeatherByCityName(
+    CityWeatherDto responseDto = facade.findByCityName(
         initialDtoParameters.getCityName());
     Assert.assertNotNull(responseDto.getCurrentTemperature());
   }
@@ -34,7 +34,7 @@ public class CityWeatherTest {
   @Test
   public void shouldGetCityWeatherByCityCoordinates() throws CityWeatherNotFound {
     CityWeatherDto responseDto =
-        facade.getCityWeatherByCityCoordinates(initialDtoParameters.getLatitude(),
+        facade.findByCityCoordinates(initialDtoParameters.getLatitude(),
             initialDtoParameters.getLongitude());
     Assert.assertNotNull(responseDto.getCurrentTemperature());
   }
@@ -45,7 +45,7 @@ public class CityWeatherTest {
     //test message
     thrown.expectMessage(is(CityWeatherNotFound.MESSAGE));
 
-    CityWeatherDto responseDto = facade.getCityWeatherByCityName(
+    CityWeatherDto responseDto = facade.findByCityName(
         "NonExistentCity");
   }
 
@@ -55,7 +55,7 @@ public class CityWeatherTest {
     //test message
     thrown.expectMessage(is("CityWeather Not Found!"));
 
-    CityWeatherDto responseDto = facade.getCityWeatherByCityCoordinates(
+    CityWeatherDto responseDto = facade.findByCityCoordinates(
         9999.0, -9812.1);
   }
 

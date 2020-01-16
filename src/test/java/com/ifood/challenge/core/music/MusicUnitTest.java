@@ -14,7 +14,7 @@ import org.junit.rules.ExpectedException;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles(EnvProfiles.DEFAULT)
-public class MusicTest {
+public class MusicUnitTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
   private MusicFacade facade = new MusicFacadeConfiguration().musicFacade();
@@ -27,7 +27,7 @@ public class MusicTest {
 
   @Test
   public void shouldReturnAMusicByGenre() throws MusicPlaylistByGenreNotFound {
-    List<MusicDto> musicDtoList = facade.getMusicByGenre(initialDtoParameters.getGenre());
+    List<MusicDto> musicDtoList = facade.findPlaylistByGenre(initialDtoParameters.getGenre());
     Assert.assertNotNull(musicDtoList);
   }
 
@@ -37,6 +37,6 @@ public class MusicTest {
     thrown.expect(MusicPlaylistByGenreNotFound.class);
     //test message
     thrown.expectMessage(is(MusicPlaylistByGenreNotFound.MESSAGE + paramByGenre));
-    List<MusicDto> musicDtoList = facade.getMusicByGenre(paramByGenre);
+    List<MusicDto> musicDtoList = facade.findPlaylistByGenre(paramByGenre);
   }
 }
