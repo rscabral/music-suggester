@@ -10,6 +10,7 @@ This is a microservice that suggests a music playlist by **city** and its **curr
  - Use Cache (Reddis, Memcache, etc)
  - New Approch for current Circuit Breacker
  - Container
+ - H2 to store the Spotify API Token
  - Deezer API :p
 
 ## How to build
