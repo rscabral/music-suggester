@@ -1,8 +1,8 @@
-package com.ifood.challenge.core.playlistsuggester.business;
+package com.ifood.challenge.core.playlistsuggester;
 
 import com.ifood.challenge.shared.ruleengine.Result;
 
-public class WeatherMusicGenreResult implements Result<String> {
+class WeatherMusicGenreResult implements Result<String> {
   private String value;
 
   public WeatherMusicGenreResult(String value) {

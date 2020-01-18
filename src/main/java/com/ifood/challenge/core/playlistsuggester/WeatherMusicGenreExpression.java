@@ -1,8 +1,8 @@
-package com.ifood.challenge.core.playlistsuggester.business;
+package com.ifood.challenge.core.playlistsuggester;
 
 import java.io.Serializable;
 
-public class WeatherMusicGenreExpression implements Serializable {
+class WeatherMusicGenreExpression implements Serializable {
   private Integer temperature;
 
   public WeatherMusicGenreExpression(Integer temperature) {

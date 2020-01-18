@@ -1,11 +1,11 @@
-package com.ifood.challenge.core.playlistsuggester.business;
+package com.ifood.challenge.core.playlistsuggester;
 
-import com.ifood.challenge.core.playlistsuggester.IWeatherMusicGenreRule;
-import com.ifood.challenge.core.playlistsuggester.IWeatherMusicGenreRuleEngine;
 import java.util.LinkedList;
 import java.util.Queue;
+import org.springframework.stereotype.Component;
 
-public class WeatherMusicGenreRuleEngine implements IWeatherMusicGenreRuleEngine {
+@Component
+class WeatherMusicGenreRuleEngine implements IWeatherMusicGenreRuleEngine {
   private Queue<IWeatherMusicGenreRule> rules = new LinkedList<>();
 
   public WeatherMusicGenreRuleEngine() {
