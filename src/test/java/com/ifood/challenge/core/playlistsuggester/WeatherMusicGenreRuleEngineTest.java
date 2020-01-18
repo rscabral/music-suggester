@@ -1,4 +1,4 @@
-package com.ifood.challenge.core.playlistsuggester.business;
+package com.ifood.challenge.core.playlistsuggester;
 
 import org.junit.Assert;
 import org.junit.Test;

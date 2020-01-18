@@ -11,14 +11,15 @@ class PlaylistSuggesterConfiguration {
 
   @Bean
   PlaylistSuggesterFacade playlistSuggesterFacade(CityWeatherFacade cityWeatherFacade,
-      MusicFacade musicFacade) {
-    return playlistSuggesterFacadeCreator(cityWeatherFacade, musicFacade);
+      MusicFacade musicFacade, IWeatherMusicGenreRuleEngine weatherMusicGenreRuleEngine) {
+    return playlistSuggesterFacadeCreator(cityWeatherFacade, musicFacade,
+        weatherMusicGenreRuleEngine);
   }
 
 
   PlaylistSuggesterFacade playlistSuggesterFacadeCreator(CityWeatherFacade cityWeatherFacade,
-      MusicFacade musicFacade) {
-    return new PlaylistSuggesterFacade(cityWeatherFacade, musicFacade);
+      MusicFacade musicFacade, IWeatherMusicGenreRuleEngine weatherMusicGenreRuleEngine) {
+    return new PlaylistSuggesterFacade(cityWeatherFacade, musicFacade, weatherMusicGenreRuleEngine);
   }
 
   @Bean

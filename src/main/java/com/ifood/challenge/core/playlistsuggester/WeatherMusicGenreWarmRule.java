@@ -1,8 +1,6 @@
-package com.ifood.challenge.core.playlistsuggester.business;
+package com.ifood.challenge.core.playlistsuggester;
 
-import com.ifood.challenge.core.playlistsuggester.IWeatherMusicGenreRule;
-
-public class WeatherMusicGenreWarmRule implements IWeatherMusicGenreRule {
+class WeatherMusicGenreWarmRule implements IWeatherMusicGenreRule {
   private WeatherMusicGenreResult result;
 
   @Override

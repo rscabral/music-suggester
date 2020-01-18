@@ -6,8 +6,6 @@ import com.ifood.challenge.core.cityweather.exception.CityWeatherNotFound;
 import com.ifood.challenge.core.music.MusicFacade;
 import com.ifood.challenge.core.music.dto.MusicDto;
 import com.ifood.challenge.core.music.exception.MusicPlaylistByGenreNotFound;
-import com.ifood.challenge.core.playlistsuggester.business.WeatherMusicGenreExpression;
-import com.ifood.challenge.core.playlistsuggester.business.WeatherMusicGenreRuleEngine;
 import com.ifood.challenge.core.playlistsuggester.exception.PlaylistSuggestionByCityCoordinatesNotFound;
 import com.ifood.challenge.core.playlistsuggester.exception.PlaylistSuggestionByCityNameNotFound;
 import java.util.ArrayList;
@@ -41,10 +39,10 @@ public class PlaylistSuggesterFacade {
    * @param musicFacade       the music proxy Created on 14 de jan de 2020 22:54:34
    */
   public PlaylistSuggesterFacade(CityWeatherFacade cityWeatherFacade,
-      MusicFacade musicFacade) {
+      MusicFacade musicFacade, IWeatherMusicGenreRuleEngine weatherMusicGenreRuleEngine) {
     this.cityWeatherProxy = cityWeatherFacade;
     this.musicFacade = musicFacade;
-    this.weatherMusicGenreRuleEngine = new WeatherMusicGenreRuleEngine();
+    this.weatherMusicGenreRuleEngine = weatherMusicGenreRuleEngine;
   }
 
   /**

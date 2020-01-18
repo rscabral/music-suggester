@@ -1,6 +1,4 @@
-package com.ifood.challenge.core.playlistsuggester.business;
-
-import com.ifood.challenge.core.playlistsuggester.IWeatherMusicGenreRule;
+package com.ifood.challenge.core.playlistsuggester;
 
 class WeatherMusicGenreChillyRule implements IWeatherMusicGenreRule {
   private WeatherMusicGenreResult result;
