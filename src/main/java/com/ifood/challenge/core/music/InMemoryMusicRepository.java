@@ -31,6 +31,8 @@ class InMemoryMusicRepository implements IMusicRepository {
   public InMemoryMusicRepository() {
     this.dataBaseByGenre = new HashMap<>();
     List<MusicDto> musicDtoList = new ArrayList<>();
+    musicDtoList.add(MusicDto.builder().setMusicName("Cubensis Lenses").setGenre("psychedelic "
+        + "rock").setPerformer("Psychedelic Porn Crumpets").build());
     musicDtoList.add(
         MusicDto.builder().setMusicName("I Appear Missing").setGenre("rock").setPerformer(
             "QotSA").build());
