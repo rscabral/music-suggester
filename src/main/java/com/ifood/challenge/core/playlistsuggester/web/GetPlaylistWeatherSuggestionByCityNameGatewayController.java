@@ -31,11 +31,11 @@ class GetPlaylistWeatherSuggestionByCityNameGatewayController {
    * @return the entity model Created on 12 de jan de 2020 18:39:13
    */
   @GetMapping(params = {"cityName"})
-  CollectionModel<EntityModel<MusicDto>> getPlaylistWeatherSuggestionByCityName(
+  public CollectionModel<EntityModel<MusicDto>> getPlaylistWeatherSuggestionByCityName(
       @RequestParam("cityName") String cityName) throws PlaylistSuggestionByCityNameNotFound {
     List<MusicDto> musicDtoList = facade.getPlaylistWeatherSuggestionByCityName(cityName);
     List<EntityModel<MusicDto>> entityModels =
-        musicDtoList.stream().map(musicDto -> musicDto.toEntityModel()).collect(
+        musicDtoList.stream().map(MusicDto::toEntityModel).collect(
             Collectors.toList());
     return new CollectionModel<>(entityModels);
   }

@@ -20,7 +20,7 @@ public class PlaylistSuggesterFacade {
   /**
    * The City weather proxy.
    */
-  private CityWeatherFacade cityWeatherProxy;
+  private CityWeatherFacade cityWeatherFacade;
 
   /**
    * The Music proxy.
@@ -40,7 +40,7 @@ public class PlaylistSuggesterFacade {
    */
   public PlaylistSuggesterFacade(CityWeatherFacade cityWeatherFacade,
       MusicFacade musicFacade, IWeatherMusicGenreRuleEngine weatherMusicGenreRuleEngine) {
-    this.cityWeatherProxy = cityWeatherFacade;
+    this.cityWeatherFacade = cityWeatherFacade;
     this.musicFacade = musicFacade;
     this.weatherMusicGenreRuleEngine = weatherMusicGenreRuleEngine;
   }
@@ -58,7 +58,7 @@ public class PlaylistSuggesterFacade {
     CityWeatherDto cityWeatherDto = null;
 
     try {
-      cityWeatherDto = cityWeatherProxy.findByCityName(cityName);
+      cityWeatherDto = cityWeatherFacade.findByCityName(cityName);
     } catch (CityWeatherNotFound cityWeatherNotFound) {
       cityWeatherNotFound.printStackTrace();
       throw new PlaylistSuggestionByCityNameNotFound(cityName);
@@ -87,7 +87,7 @@ public class PlaylistSuggesterFacade {
     CityWeatherDto cityWeatherDto = null;
 
     try {
-      cityWeatherDto = cityWeatherProxy.findByCityCoordinates(latitude, longitude);
+      cityWeatherDto = cityWeatherFacade.findByCityCoordinates(latitude, longitude);
     } catch (CityWeatherNotFound cityWeatherNotFound) {
       throw new PlaylistSuggestionByCityCoordinatesNotFound(latitude, longitude);
     }

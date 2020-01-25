@@ -35,13 +35,13 @@ class GetPlaylistWeatherSuggestionByCityCoordinatesGatewayController {
    * @return the suggestion by city coordinates
    */
   @GetMapping(params = {"lat", "lon"})
-  CollectionModel<EntityModel<MusicDto>> getPlaylistWeatherSuggestionByCityCoordinates(
+  public CollectionModel<EntityModel<MusicDto>> getPlaylistWeatherSuggestionByCityCoordinates(
       @RequestParam Double lat,
       @RequestParam Double lon) throws PlaylistSuggestionByCityCoordinatesNotFound {
     List<MusicDto> musicDtoList =
         facade.getPlaylistWeatherSuggestionByCityCoordinates(lat, lon);
     List<EntityModel<MusicDto>> entityModels =
-        musicDtoList.stream().map(musicDto -> musicDto.toEntityModel()).collect(
+        musicDtoList.stream().map(MusicDto::toEntityModel).collect(
             Collectors.toList());
     return new CollectionModel<>(entityModels);
   }

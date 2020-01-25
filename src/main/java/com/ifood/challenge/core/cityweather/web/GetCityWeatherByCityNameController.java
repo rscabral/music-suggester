@@ -19,7 +19,7 @@ class GetCityWeatherByCityNameController {
   private CityWeatherFacade facade;
 
   @GetMapping(params = {"cityName"})
-  EntityModel<CityWeatherDto> findByCityName(
+  public EntityModel<CityWeatherDto> findByCityName(
       @RequestParam("cityName") String cityName) throws CityWeatherNotFound {
     CityWeatherDto cityWeatherDto = facade.findByCityName(cityName);
     return cityWeatherDto.toEntityModel();

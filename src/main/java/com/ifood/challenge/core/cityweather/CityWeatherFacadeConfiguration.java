@@ -8,16 +8,23 @@ import org.springframework.context.annotation.Configuration;
 class CityWeatherFacadeConfiguration {
 
   CityWeatherFacade cityWeatherFacade() {
-    return cityWeatherFacadeConstructor(new InMemoryCityWeatherRepository());
+    return cityWeatherFacadeConstructor(new InMemoryFindCityWeatherByCityCoordinatesRepository(),
+        new InMemoryFindCityWeatherByCityCoordinatesRepository());
   }
 
   @Bean
-  CityWeatherFacade cityWeatherFacade(ICityWeatherRepository repository) {
-    return cityWeatherFacadeConstructor(repository);
+  CityWeatherFacade cityWeatherFacade(
+      IFindCityWeatherByCityCoordinatesRepository findCityWeatherByCityCoordinatesRepository,
+      IFindCityWeatherByCityNameRepository findCityWeatherByCityNameRepository) {
+    return cityWeatherFacadeConstructor(findCityWeatherByCityCoordinatesRepository,
+        findCityWeatherByCityNameRepository);
   }
 
-  CityWeatherFacade cityWeatherFacadeConstructor(ICityWeatherRepository repository) {
-    return new CityWeatherFacade(repository);
+  CityWeatherFacade cityWeatherFacadeConstructor(
+      IFindCityWeatherByCityCoordinatesRepository findCityWeatherByCityCoordinatesRepository,
+      IFindCityWeatherByCityNameRepository findCityWeatherByCityNameRepository) {
+    return new CityWeatherFacade(findCityWeatherByCityCoordinatesRepository,
+        findCityWeatherByCityNameRepository);
   }
 
   @Bean

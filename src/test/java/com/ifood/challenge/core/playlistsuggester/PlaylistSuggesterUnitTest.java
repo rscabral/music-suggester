@@ -28,8 +28,8 @@ public class PlaylistSuggesterUnitTest {
   private CityWeatherFacade cityWeatherFacade = Mockito.mock(CityWeatherFacade.class);
   private MusicFacade musicFacade = Mockito.mock(MusicFacade.class);
   private PlaylistSuggesterFacade facade =
-      new PlaylistSuggesterConfiguration().playlistSuggesterFacade(cityWeatherFacade, musicFacade
-          , new WeatherMusicGenreRuleEngine());
+      new PlaylistSuggesterConfiguration().playlistSuggesterFacade(cityWeatherFacade, musicFacade,
+          new WeatherMusicGenreRuleEngine());
   private PlaylistSuggesterDto initialDtoParameters = createPlaylistSuggesterDto();
 
   private PlaylistSuggesterDto createPlaylistSuggesterDto() {

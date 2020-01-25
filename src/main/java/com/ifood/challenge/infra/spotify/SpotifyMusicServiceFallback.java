@@ -10,19 +10,22 @@ import org.springframework.stereotype.Service;
 
 @Profile(EnvProfiles.PROD)
 @Service
-class SpotifyMusicServiceFallback implements SpotifyMusicProxy {
+class SpotifyMusicServiceFallback implements SpotifyMusicApi {
   private final Logger log = LoggerFactory.getLogger(SpotifyMusicServiceFallback.class);
   private Throwable cause;
   private SpotifyAppKeyRefreshService keyRefreshService;
+  private SpotifyMusicProxy spotifyMusicProxy;
 
   public SpotifyMusicServiceFallback(Throwable cause,
-      SpotifyAppKeyRefreshService keyRefreshService) {
+      SpotifyAppKeyRefreshService keyRefreshService, SpotifyMusicProxy spotifyMusicProxy) {
     this.cause = cause;
     this.keyRefreshService = keyRefreshService;
+    this.spotifyMusicProxy = spotifyMusicProxy;
   }
 
   public SpotifyMusicServiceFallback() {
   }
+
 
   @Override
   public SpotifyDto findPlaylistByGenre(String genre, String type, String market,
@@ -32,6 +35,8 @@ class SpotifyMusicServiceFallback implements SpotifyMusicProxy {
         FeignException exception = (FeignException) cause;
         if (exception.status() == 401) {
           keyRefreshService.refreshToken();
+          // get from cache maybe
+          return spotifyMusicProxy.findPlaylistByGenre(genre);
         }
         /* check for status code 429 (rate-limit exceeds) (wait for X seconds - Retry-After)
          *  but probably I'll return a cash*/

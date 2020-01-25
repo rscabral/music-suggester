@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 
 @Profile(EnvProfiles.PROD)
 @Service
-class SpotifyProxyFallbackFactory implements FallbackFactory<SpotifyMusicProxy> {
+class SpotifyProxyFallbackFactory implements FallbackFactory<SpotifyMusicApi> {
   @Autowired
   private SpotifyAppKeyRefreshService keyRefreshService;
 
+  @Autowired
+  private SpotifyMusicProxy spotifyMusicProxy;
+
   @Override
-  public SpotifyMusicProxy create(Throwable throwable) {
-    return new SpotifyMusicServiceFallback(throwable, keyRefreshService);
+  public SpotifyMusicApi create(Throwable throwable) {
+    return new SpotifyMusicServiceFallback(throwable, keyRefreshService, spotifyMusicProxy);
   }
 }

@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Profile(EnvProfiles.DEFAULT)
 @Service
-class InMemoryCityWeatherRepository implements ICityWeatherRepository {
+class InMemoryFindCityWeatherByCityCoordinatesRepository
+    implements IFindCityWeatherByCityCoordinatesRepository, IFindCityWeatherByCityNameRepository {
   List<CityWeatherDto> cityWeatherDtoList;
 
-  public InMemoryCityWeatherRepository() {
+  public InMemoryFindCityWeatherByCityCoordinatesRepository() {
     cityWeatherDtoList = new ArrayList<>();
     cityWeatherDtoList.add(
         CityWeatherDto.builder().setCityName("London").setLatitude(123.00).setLongitude(
