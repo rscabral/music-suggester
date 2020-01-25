@@ -12,6 +12,9 @@ import org.slf4j.Logger;
  */
 public class SimpleAsyncExecutionHelper {
 
+  private SimpleAsyncExecutionHelper() {
+  }
+
   /**
    * Execute async t.
    * Created at 24 de jan de 2020 23:00:56

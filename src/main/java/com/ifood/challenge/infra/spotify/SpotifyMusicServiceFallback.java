@@ -13,14 +13,9 @@ import org.springframework.stereotype.Service;
 class SpotifyMusicServiceFallback implements SpotifyMusicApi {
   private final Logger log = LoggerFactory.getLogger(SpotifyMusicServiceFallback.class);
   private Throwable cause;
-  private SpotifyAppKeyRefreshService keyRefreshService;
-  private SpotifyMusicProxy spotifyMusicProxy;
 
-  public SpotifyMusicServiceFallback(Throwable cause,
-      SpotifyAppKeyRefreshService keyRefreshService, SpotifyMusicProxy spotifyMusicProxy) {
+  public SpotifyMusicServiceFallback(Throwable cause) {
     this.cause = cause;
-    this.keyRefreshService = keyRefreshService;
-    this.spotifyMusicProxy = spotifyMusicProxy;
   }
 
   public SpotifyMusicServiceFallback() {
@@ -34,9 +29,7 @@ class SpotifyMusicServiceFallback implements SpotifyMusicApi {
       if (cause instanceof FeignException) {
         FeignException exception = (FeignException) cause;
         if (exception.status() == 401) {
-          keyRefreshService.refreshToken();
-          // get from cache maybe
-          return spotifyMusicProxy.findPlaylistByGenre(genre);
+          // with cache maybe this is not necessary anymore
         }
         /* check for status code 429 (rate-limit exceeds) (wait for X seconds - Retry-After)
          *  but probably I'll return a cash*/
