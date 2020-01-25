@@ -8,14 +8,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SpotifyScheduler {
+class SpotifyScheduler {
 
   @Autowired
-  //@Qualifier("spotifyTokenCacheManager")
   private CacheManager cacheManager;
 
-  // 3000000
-  @Scheduled(fixedRate = 60000)
+  @Scheduled(fixedRate = 3000000)
   public void reportCurrentTime() {
     Collection<String> cacheNames = cacheManager.getCacheNames();
     cacheNames.forEach(this::getCacheAndClear);
