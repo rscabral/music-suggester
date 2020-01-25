@@ -6,8 +6,6 @@ import com.ifood.challenge.infra.openweather.OpenWeatherProxy;
 import com.ifood.challenge.shared.EnvProfiles;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -17,8 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 class OpenWeatherCityWeatherRepository implements IFindCityWeatherByCityCoordinatesRepository,
     IFindCityWeatherByCityNameRepository {
-  private final Logger log = LoggerFactory.getLogger(
-      OpenWeatherCityWeatherRepository.class);
 
   @Value("${open.weather.api.key.value}")
   private String apiKey;

@@ -1,6 +1,5 @@
 package com.ifood.challenge.infra.spotify;
 
-import com.ifood.challenge.infra.secretmanager.SpotifySecretManagerSingleton;
 import com.ifood.challenge.shared.EnvProfiles;
 import com.ifood.challenge.shared.ultils.SimpleAsyncExecutionHelper;
 import java.util.HashMap;
@@ -25,26 +24,26 @@ public class SpotifyMusicProxy {
   private final Logger log = LoggerFactory.getLogger(SpotifyMusicProxy.class);
 
   /**
-   * The Header map.
-   */
-  private Map<String, Object> headerMap;
-
-  /**
    * The Spotify music proxy.
    */
   @Autowired
-  private SpotifyMusicApi spotifyMusicProxy;
+  private SpotifyMusicApi spotifyMusicApi;
+
+  @Autowired
+  private SpotifyAppKeyRefreshService keyRefreshService;
 
   /**
    * Reload.
    * Created at 24 de jan de 2020 23:01:04
    */
-  private void reload() {
-    headerMap = new HashMap<>();
+  private Map getHeaderConfiguration() {
+    Map<String, Object> headerMap = new HashMap<>();
     headerMap.put("Accept", MediaType.APPLICATION_JSON);
     headerMap.put("Authorization",
-        "Bearer " + SpotifySecretManagerSingleton.getInstance().getCurrentToken());
+        "Bearer " + keyRefreshService.getRefreshToken().getAccessToken());
     headerMap.put("Content-Type", MediaType.APPLICATION_JSON);
+
+    return headerMap;
   }
 
   /**
@@ -55,10 +54,9 @@ public class SpotifyMusicProxy {
    * @return the spotify dto
    */
   public SpotifyDto findPlaylistByGenre(String genre) {
-    reload();
-    return SimpleAsyncExecutionHelper.executeAsync(() -> spotifyMusicProxy
+    return SimpleAsyncExecutionHelper.executeAsync(() -> spotifyMusicApi
         .findPlaylistByGenre(getGenreParam(genre), "track", getMarketParam(),
-            this.headerMap), log);
+            getHeaderConfiguration()), log);
   }
 
   /**

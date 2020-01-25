@@ -11,6 +11,10 @@ import java.util.List;
  * Created at 15 de jan de 2020 21:34:08
  */
 public class SpotifyDtoMapper {
+
+  private SpotifyDtoMapper() {
+  }
+
   /**
    * Map from origin to internal music dto list.
    * Created at 15 de jan de 2020 21:34:08

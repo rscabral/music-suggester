@@ -2,9 +2,11 @@ package com.ifood.challenge;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * The class Music suggester application.
@@ -14,6 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"com.ifood.challenge.*"})
 @EnableFeignClients
 @EnableCircuitBreaker
+@EnableCaching
+@EnableScheduling
 public class MusicSuggesterApplication {
 
   /**

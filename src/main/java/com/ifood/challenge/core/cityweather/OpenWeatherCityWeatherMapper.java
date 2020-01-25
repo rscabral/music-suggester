@@ -2,17 +2,22 @@ package com.ifood.challenge.core.cityweather;
 
 import com.ifood.challenge.core.cityweather.dto.CityWeatherDto;
 import com.ifood.challenge.infra.openweather.OpenWeatherDto;
-import java.util.function.Function;
+import java.util.function.DoubleToIntFunction;
 
 /**
  * The class Open weather city weather mapper.
  * Created at 15 de jan de 2020 21:33:23
  */
 public class OpenWeatherCityWeatherMapper {
+
   /**
    * The Kelvin to integer celsius.
    */
-  private static Function<Double, Integer> kelvinToIntegerCelsius = (k) -> (int) (k - 273.15);
+  private static DoubleToIntFunction kelvinToIntegerCelsius =
+      k -> (int) (k - 273.15);
+
+  private OpenWeatherCityWeatherMapper() {
+  }
 
   /**
    * Map from origin to internal dto city weather dto.
@@ -84,9 +89,8 @@ public class OpenWeatherCityWeatherMapper {
    */
   private static Integer handleCurrentTemp(OpenWeatherDto openWeatherDto) {
     if (openWeatherDto.hasMainData() && openWeatherDto.getMain().hasTemp()) {
-      Integer currentTempInCelsius = kelvinToIntegerCelsius
-          .apply(openWeatherDto.getMain().getTemp());
-      return currentTempInCelsius;
+      return kelvinToIntegerCelsius
+          .applyAsInt(openWeatherDto.getMain().getTemp());
     }
     return null;
   }
