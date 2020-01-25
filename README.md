@@ -16,7 +16,7 @@ This is a microservice that suggests a music playlist by **city** and its **curr
 ## How to build
  - Use Maven: 
    - mvn clean package
-   - mvn spring-boot:run 
+   - mvn spring-boot:run OR mvn spring-boot:run -Dspring-boot.run.profiles=prod
 
 ## How to use it
 
