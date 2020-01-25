@@ -12,11 +12,11 @@ class MusicFacadeConfiguration {
   }
 
   @Bean
-  MusicFacade musicFacade(IMusicRepository repository) {
+  MusicFacade musicFacade(IFindMusicPlaylistByGenreRepository repository) {
     return musicFacadeCreator(repository);
   }
 
-  MusicFacade musicFacadeCreator(IMusicRepository repository) {
+  MusicFacade musicFacadeCreator(IFindMusicPlaylistByGenreRepository repository) {
     return new MusicFacade(repository);
   }
 }

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Profile(EnvProfiles.DEFAULT)
 @Service
-class InMemoryMusicRepository implements IMusicRepository {
+class InMemoryMusicRepository implements IFindMusicPlaylistByGenreRepository {
   /**
    * The Data base by genre.
    */

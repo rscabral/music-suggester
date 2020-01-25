@@ -19,7 +19,7 @@ class GetCityWeatherByCityCoordinatesController {
   private CityWeatherFacade facade;
 
   @GetMapping(params = {"lat", "lon"})
-  EntityModel<CityWeatherDto> findByCityCoordinates(@RequestParam Double lat,
+  public EntityModel<CityWeatherDto> findByCityCoordinates(@RequestParam Double lat,
       @RequestParam Double lon) throws CityWeatherNotFound {
     CityWeatherDto cityWeatherDto = facade.findByCityCoordinates(lat, lon);
     return cityWeatherDto.toEntityModel();

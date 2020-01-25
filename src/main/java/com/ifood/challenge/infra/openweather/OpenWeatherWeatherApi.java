@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Profile("!" + EnvProfiles.DEFAULT)
 @FeignClient(value = "${open.weather.api.url}", fallbackFactory =
     OpenWeatherServiceFallbackFactory.class)
-public interface OpenWeatherWeatherProxy {
+interface OpenWeatherWeatherApi {
 
   @GetMapping(params = {"lat", "lon", "APPID:${open.weather.api.key.value}"})
   OpenWeatherDto findByCityCoordinates(@RequestParam Double lat,

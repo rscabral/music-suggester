@@ -4,6 +4,6 @@ import com.ifood.challenge.core.music.dto.MusicDto;
 import java.util.Collection;
 import java.util.Optional;
 
-interface IMusicRepository {
+interface IFindMusicPlaylistByGenreRepository {
   Optional<Collection<MusicDto>> findByGenre(String genre);
 }

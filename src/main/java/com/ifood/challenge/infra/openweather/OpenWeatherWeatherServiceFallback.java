@@ -3,7 +3,7 @@ package com.ifood.challenge.infra.openweather;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class OpenWeatherWeatherServiceFallback implements OpenWeatherWeatherProxy {
+class OpenWeatherWeatherServiceFallback implements OpenWeatherWeatherApi {
   private final Logger log = LoggerFactory
       .getLogger(OpenWeatherWeatherServiceFallback.class);
   private Throwable cause;

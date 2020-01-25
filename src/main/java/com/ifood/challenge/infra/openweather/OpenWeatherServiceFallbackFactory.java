@@ -6,13 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-class OpenWeatherServiceFallbackFactory implements FallbackFactory<OpenWeatherWeatherProxy> {
+class OpenWeatherServiceFallbackFactory implements FallbackFactory<OpenWeatherWeatherApi> {
   private final Logger log = LoggerFactory
       .getLogger(OpenWeatherServiceFallbackFactory.class);
   private Throwable cause;
 
   @Override
-  public OpenWeatherWeatherProxy create(Throwable throwable) {
+  public OpenWeatherWeatherApi create(Throwable throwable) {
     return new OpenWeatherWeatherServiceFallback((throwable));
   }
 }
