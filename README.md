@@ -4,13 +4,13 @@ This is a microservice that suggests a music playlist by **city** and its **curr
 
 ## Feature
  - Music playlits come from **Spotify API** (https://developer.spotify.com/) -> **Deezer** comming soon
+   - Caffeine Cache to handle token swapping
  - Current city temperature comes from **OpenWeatherMaps API** (https://openweathermap.org/)
 
 ## Missing/New Ideas
- - Use Cache (Reddis, Memcache, etc)
+ - Use Cache to add previous searchs (Reddis, Memcache, etc)
  - New Approch for current Circuit Breacker
  - Container
- - H2 to store the Spotify API Token
  - Deezer API :p
 
 ## How to build
