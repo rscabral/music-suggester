@@ -1,5 +1,3 @@
-# iFood Challenge
-
 This is a microservice that suggests a music playlist by **city** and its **current temperature**.
 
 ## Feature
